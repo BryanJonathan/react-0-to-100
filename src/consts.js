@@ -25,3 +25,9 @@ export const CATEGORIES = [
     imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
   },
 ];
+
+export const ROUTES = {
+  HOME: "/",
+  SHOP: "shop",
+  SIGNIN: "sign-in",
+};
