@@ -29,7 +29,7 @@ export const CATEGORIES = [
 export const ROUTES = {
   HOME: "/",
   SHOP: "shop",
-  SIGNIN: "sign-in",
+  AUTH: "auth",
 };
 
 export const SIGN_IN_FORM_FIELDS = {
