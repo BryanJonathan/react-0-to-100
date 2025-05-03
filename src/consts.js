@@ -31,3 +31,15 @@ export const ROUTES = {
   SHOP: "shop",
   SIGNIN: "sign-in",
 };
+
+export const SIGN_IN_FORM_FIELDS = {
+  DISPLAY_NAME: "displayName",
+  EMAIL: "email",
+  PASSWORD: "password",
+  CONFIRM_PASSWORD: "confirmPassword",
+};
+
+export const BUTTON_TYPE_CLASSES = {
+  google: "google-sign-in",
+  inverted: "inverted",
+};
