@@ -5,10 +5,11 @@ import { ROUTES } from "./consts";
 import Home from "./routes/home/home.component";
 import Navigation from "./routes/navigation/navigation.component";
 import Authentication from "./routes/authentication/authentication.component";
+import Shop from "./routes/shop/shop.component";
 
-const Shop = () => {
-  return <div>THIS IS THE SHOP PAGE</div>;
-};
+// const Shop = () => {
+//   return <div>THIS IS THE SHOP PAGE</div>;
+// };
 
 const App = () => {
   return (
