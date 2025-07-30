@@ -7,10 +7,6 @@ import Navigation from "./routes/navigation/navigation.component";
 import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 
-// const Shop = () => {
-//   return <div>THIS IS THE SHOP PAGE</div>;
-// };
-
 const App = () => {
   return (
     <Routes>
