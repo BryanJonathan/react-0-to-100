@@ -40,7 +40,6 @@ const SignUpForm = () => {
     }
 
     try {
-      console.log("creating user with email and password", email, password);
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password

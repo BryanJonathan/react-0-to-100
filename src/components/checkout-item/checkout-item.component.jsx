@@ -10,7 +10,6 @@ const CheckoutItem = ({ cartItem }) => {
     useContext(CartDropdownContext);
 
   const handleClick = (event) => {
-    console.log(event);
     const value = event.target.dataset.value;
     const action = event.target.dataset.action;
     changeItemQuantity(value, action);
