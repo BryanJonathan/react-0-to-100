@@ -30,6 +30,7 @@ export const ROUTES = {
   HOME: "/",
   SHOP: "shop",
   AUTH: "auth",
+  CHECKOUT: "checkout",
 };
 
 export const SIGN_IN_FORM_FIELDS = {
@@ -42,4 +43,10 @@ export const SIGN_IN_FORM_FIELDS = {
 export const BUTTON_TYPE_CLASSES = {
   google: "google-sign-in",
   inverted: "inverted",
+};
+
+export const TYPES_ACTION_CART = {
+  ADD: "ADD_ITEM",
+  REMOVE: "REMOVE_ITEM",
+  CLEAR: "CLEAR_ITEM_FROM_CART",
 };

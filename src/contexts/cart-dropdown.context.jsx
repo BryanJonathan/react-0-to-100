@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
+import { TYPES_ACTION_CART } from "../consts";
 
-const addCartItem = (cartItems, productToAdd) => {
+const changeCartItem = (cartItems, productToAdd, quantity) => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   );
@@ -8,7 +9,7 @@ const addCartItem = (cartItems, productToAdd) => {
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
       cartItem.id === productToAdd.id
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        ? { ...cartItem, quantity: cartItem.quantity + quantity }
         : cartItem
     );
   }
@@ -22,6 +23,8 @@ export const CartDropdownContext = createContext({
   cartItems: [],
   addItemToCart: () => {},
   totalQuantity: 0,
+  changeItemQuantity: () => {},
+  removeItemFromCart: () => {},
 });
 
 export const CartDropdownProvider = ({ children }) => {
@@ -29,8 +32,45 @@ export const CartDropdownProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
+  const changeItemQuantity = (itemId, action) => {
+    itemId = Number(itemId);
+    const value = cartItems.find((cartItem) => cartItem.id === itemId);
+    if (!value) {
+      console.warn("Item not found");
+      return;
+    }
+
+    switch (action) {
+      case TYPES_ACTION_CART.ADD:
+        setCartItems((prevCardItems) =>
+          changeCartItem(prevCardItems, value, 1)
+        );
+        break;
+      case TYPES_ACTION_CART.REMOVE:
+        if (value.quantity <= 0) {
+          removeItemFromCart(itemId);
+          break;
+        }
+        setCartItems((prevCardItems) =>
+          changeCartItem(prevCardItems, value, -1)
+        );
+        break;
+      default:
+        console.warn("Unknown action type");
+    }
+  };
+
+  const removeItemFromCart = (itemId) => {
+    itemId = Number(itemId);
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((cartItem) => cartItem.id !== itemId)
+    );
+  };
+
   const addItemToCart = (productToAdd) => {
-    setCartItems((prevCartItems) => addCartItem(prevCartItems, productToAdd));
+    setCartItems((prevCartItems) =>
+      changeCartItem(prevCartItems, productToAdd, 1)
+    );
   };
 
   const toggleDropdown = () => {
@@ -51,6 +91,8 @@ export const CartDropdownProvider = ({ children }) => {
     cartItems,
     addItemToCart,
     totalQuantity,
+    changeItemQuantity,
+    removeItemFromCart,
   };
 
   return (
