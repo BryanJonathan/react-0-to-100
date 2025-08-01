@@ -1,20 +1,20 @@
 import { createContext, useState, useEffect } from "react";
 import { TYPES_ACTION_CART } from "../consts";
 
-const changeCartItem = (cartItems, productToAdd, quantity) => {
+const changeCartItem = (cartItems, product, quantity) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
+    (cartItem) => cartItem.id === product.id
   );
 
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === productToAdd.id
+      cartItem.id === product.id
         ? { ...cartItem, quantity: cartItem.quantity + quantity }
         : cartItem
     );
   }
 
-  return [...cartItems, { ...productToAdd, quantity: 1 }];
+  return [...cartItems, { ...product, quantity: 1 }];
 };
 
 export const CartDropdownContext = createContext({
@@ -47,7 +47,7 @@ export const CartDropdownProvider = ({ children }) => {
         );
         break;
       case TYPES_ACTION_CART.REMOVE:
-        if (value.quantity <= 0) {
+        if (value.quantity <= 1) {
           removeItemFromCart(itemId);
           break;
         }
