@@ -1,17 +1,13 @@
-import "./checkout.styles.scss";
 import { useContext } from "react";
+
 import { CartDropdownContext } from "../../contexts/cart-dropdown.context";
-import { TYPES_ACTION_CART } from "../../consts";
+
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 
-const Checkout = () => {
-  const { cartItems, totalQuantity, changeItemQuantity, removeItemFromCart } =
-    useContext(CartDropdownContext);
+import "./checkout.styles.scss";
 
-  const cartTotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+const Checkout = () => {
+  const { cartItems, cartTotal } = useContext(CartDropdownContext);
 
   return (
     <div className="checkout-container">
@@ -35,7 +31,7 @@ const Checkout = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className="total">TOTAL: ${cartTotal || 0}</div>
+      <span className="total">Total: ${cartTotal}</span>
     </div>
   );
 };

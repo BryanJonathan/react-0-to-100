@@ -1,47 +1,45 @@
 import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 
-import { ROUTES } from "../../consts";
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 
-import CartIcon from "../../components/cart-icon/cart-icon.component.jsx";
-import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component.jsx";
+import { UserContext } from "../../contexts/user.context";
+import { CartDropdownContext } from "../../contexts/cart-dropdown.context";
 
-import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
-import { UserContext } from "../../contexts/user.context.jsx";
-import { CartDropdownContext } from "../../contexts/cart-dropdown.context.jsx";
-
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isOpen } = useContext(CartDropdownContext);
+  const { isCartOpen } = useContext(CartDropdownContext);
 
   return (
     <Fragment>
       <div className="navigation">
-        <Link to={ROUTES.HOME} className="logo-container">
-          <CrownLogo className="logo" />
+        <Link className="logo-container" to="/">
+          <CrwnLogo className="logo" />
         </Link>
         <div className="nav-links-container">
-          <Link className="nav-link" to={ROUTES.SHOP}>
+          <Link className="nav-link" to="/shop">
             SHOP
           </Link>
+
           {currentUser ? (
             <span className="nav-link" onClick={signOutUser}>
               SIGN OUT
             </span>
           ) : (
-            <Link className="nav-link" to={ROUTES.AUTH}>
+            <Link className="nav-link" to="/auth">
               SIGN IN
             </Link>
           )}
           <CartIcon />
         </div>
-        {isOpen && <CartDropdown />}
+        {isCartOpen && <CartDropdown />}
       </div>
-
       <Outlet />
     </Fragment>
   );

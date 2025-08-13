@@ -26,13 +26,6 @@ export const CATEGORIES = [
   },
 ];
 
-export const ROUTES = {
-  HOME: "/",
-  SHOP: "shop",
-  AUTH: "auth",
-  CHECKOUT: "checkout",
-};
-
 export const SIGN_IN_FORM_FIELDS = {
   DISPLAY_NAME: "displayName",
   EMAIL: "email",
