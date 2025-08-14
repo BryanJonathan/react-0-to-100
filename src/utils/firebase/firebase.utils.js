@@ -9,7 +9,6 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-
 import {
   getFirestore,
   doc,
@@ -30,18 +29,19 @@ const firebaseConfig = {
   appId: "1:357506391986:web:5c6bb52a2b87a365e74eab",
 };
 
-initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-const googleProdiver = new GoogleAuthProvider();
-googleProdiver.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
-export const auth = getAuth();
 
+export const auth = getAuth();
 export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProdiver);
+  signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProdiver);
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
@@ -88,8 +88,8 @@ export const createUserDocumentFromAuth = async (
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
-
     const createdAt = new Date();
+
     try {
       await setDoc(userDocRef, {
         displayName,
@@ -107,11 +107,13 @@ export const createUserDocumentFromAuth = async (
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
+
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
+
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
