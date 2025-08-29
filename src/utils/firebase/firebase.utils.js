@@ -36,6 +36,8 @@ const requiredEnv = [
   "REACT_APP_FIREBASE_APP_ID",
 ];
 
+console.log("API KEY:", process.env.REACT_APP_FIREBASE_API_KEY);
+
 const missing = requiredEnv.filter((v) => !process.env[v]);
 if (missing.length > 0) {
   console.warn(
