@@ -19,15 +19,31 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyBCFixGgCtgj_TC4HnMWCt48kpeoI45d5Y",
-  authDomain: "crown-clothing-db-10316.firebaseapp.com",
-  projectId: "crown-clothing-db-10316",
-  storageBucket: "crown-clothing-db-10316.firebasestorage.app",
-  messagingSenderId: "357506391986",
-  appId: "1:357506391986:web:5c6bb52a2b87a365e74eab",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
+const requiredEnv = [
+  "REACT_APP_FIREBASE_API_KEY",
+  "REACT_APP_FIREBASE_AUTH_DOMAIN",
+  "REACT_APP_FIREBASE_PROJECT_ID",
+  "REACT_APP_FIREBASE_STORAGE_BUCKET",
+  "REACT_APP_FIREBASE_MESSAGING_SENDER_ID",
+  "REACT_APP_FIREBASE_APP_ID",
+];
+
+const missing = requiredEnv.filter((v) => !process.env[v]);
+if (missing.length > 0) {
+  console.warn(
+    `Missing Firebase environment variables: ${missing.join(
+      ", "
+    )}. Create a .env.local with these values based on .env.local.example`
+  );
+}
 
 initializeApp(firebaseConfig);
 
@@ -59,7 +75,6 @@ export const addCollectionAndDocuments = async (
   });
 
   await batch.commit();
-  console.log("done");
 };
 
 export const getCategoriesAndDocuments = async () => {
